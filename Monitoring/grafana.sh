@@ -1,4 +1,6 @@
 # It works in ubuntu machines change it accordingly to work on other machines as well.
+# publicip:3000
+
 
 
 sudo apt-get install -y adduser libfontconfig1
