@@ -1,5 +1,9 @@
 # this will setup loki & promtail to watch logs 
 
+# For this you need to install docker
+
+# docker --version
+
 
 wget https://raw.githubusercontent.com/grafana/loki/v2.8.0/cmd/loki/loki-local-config.yaml -O loki-config.yaml
 docker run -itd --name loki -v /root/:/mnt/config -p 3100:3100 grafana/loki:2.8.0
