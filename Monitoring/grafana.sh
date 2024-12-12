@@ -1,5 +1,5 @@
 # It works in ubuntu machines change it accordingly to work on other machines as well.
-# publicip:3000
+# http://publicip:3000
 
 
 
