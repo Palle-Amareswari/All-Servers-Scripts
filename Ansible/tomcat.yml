@@ -1,0 +1,39 @@
+# This yml file contains tomcat server setup through ansible-playbook from Ansible main server into worker servers.
+
+- hosts: [dev/test]  # your worker nodes names
+  tasks:
+      
+      # downloading tomcat into root folder
+    - name: download tomcat from dlcdn
+      get_url:
+        url: "https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.98/bin/apache-tomcat-9.0.98.tar.gz"
+        dest: "/root/"
+                   
+      #  untar the downloaded file
+    - name: untar the apache file
+      command: tar -zxvf apache-tomcat-9.0.98.tar.gz
+
+      # renaming the downloaded file
+    - name: rename the tomcat
+      command: mv apache-tomcat-9.0.98 tomcat
+      tags: abc
+
+      #   install the java
+    - name: install java
+      command: yum install java-1.8.0-amazon-corretto -y
+
+
+      # basically we need to modify the tomcat-users.xml and context.xml files while we are setting up tomcat server: below 2 tasks related to that [in main server only we are creating that files and copying ]
+    - name: setting the roles in tomcat-user.xml file
+      template:
+        src: tomcat-users.xml
+        dest: /root/tomcat/conf/tomcat-users.xml
+
+    - name: delete two lines in context.xml
+      template:
+        src: context.xml
+        dest: /root/tomcat/webapps/manager/META-INF/context.xml
+
+        # now you need to start the tomcat server : here nohup module is used to run in background also 
+    - name: start the tomcat 
+      shell: nohup /root/tomcat/bin/startup.sh
