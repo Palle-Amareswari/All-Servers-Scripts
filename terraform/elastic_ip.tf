@@ -14,7 +14,7 @@ resource "aws_instance" "example" {
 
 # create an Elastic IP
 resource "aws_eip" "example" { 
-  domain = vpc
+  domain = "vpc"
 }
 
 # Associate Elastic IP with EC2
